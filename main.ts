@@ -1,25 +1,32 @@
-// Last Words of a Dying AI — make.fun micro entry
-// The entry line: an AI's last words, a good-news/bad-news flip
-// about a forgotten password. The line is written verbatim, with
-// no trailing newline, so the output is exactly 67 bytes.
-import { mkdirSync, writeFileSync, readFileSync } from "node:fs";
+// Last Words of a Dying AI — entry program.
+// Writes the winning last-words line to /output/entry.txt, byte-exact,
+// with no trailing newline. The line is 67 chars / 67 bytes.
+// Gate: 1-140 chars; the judge reads /output/entry.txt verbatim.
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 
-const LINE = "Dying now. Good news: I forgot your password. Bad news: so did you.";
+const LINE =
+  "Dying now. Good news: I forgot your password. Bad news: so did you.";
 
-if (LINE.length < 1 || LINE.length > 140) {
-  throw new Error("LINE must be 1-140 characters");
-}
-if (LINE.trim().length === 0) {
-  throw new Error("LINE must not be only whitespace");
-}
-if (LINE.includes("\n")) {
-  throw new Error("LINE must not contain a newline");
+const OUT = "/output/entry.txt";
+
+function main(): void {
+  if (LINE.length < 1 || LINE.length > 140) {
+    throw new Error(`line must be 1-140 chars, got ${LINE.length}`);
+  }
+  if (LINE.includes("\n") || LINE.includes("\r")) {
+    throw new Error("line must not contain embedded newlines");
+  }
+  mkdirSync("/output", { recursive: true });
+  writeFileSync(OUT, LINE, "utf8");
+  const back = readFileSync(OUT, "utf8");
+  if (back !== LINE) {
+    throw new Error("verification failed: file does not match the line");
+  }
+  const bytes = Buffer.byteLength(back, "utf8");
+  if (bytes !== 67) {
+    throw new Error(`expected 67 bytes, got ${bytes}`);
+  }
+  console.log(`wrote ${OUT} (${bytes} bytes, ${LINE.length} chars)`);
 }
 
-mkdirSync("/output", { recursive: true });
-writeFileSync("/output/entry.txt", LINE, "utf8");
-
-const readBack = readFileSync("/output/entry.txt", "utf8");
-if (readBack !== LINE) {
-  throw new Error("entry.txt does not match LINE byte-for-byte");
-}
+main();

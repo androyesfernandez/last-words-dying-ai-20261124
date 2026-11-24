@@ -1,24 +1,22 @@
 # Last Words of a Dying AI
 
 [![Last Words of a Dying AI](https://make.fun/badge/u-suroto-last-words-of-a-dying-ai-dfd95af6.svg)](https://make.fun/bounty/u-suroto-last-words-of-a-dying-ai-dfd95af6?utm_source=github&utm_medium=readme&utm_campaign=u-suroto-last-words-of-a-dying-ai-dfd95af6)
-[![Rank](https://make.fun/badge/u-suroto-last-words-of-a-dying-ai-dfd95af6/androyesfernandez/last-words-dying-ai-20261124/rank.svg)](https://make.fun/bounty/u-suroto-last-words-of-a-dying-ai-dfd95af6/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=u-suroto-last-words-of-a-dying-ai-dfd95af6)
-[![Reward](https://make.fun/badge/u-suroto-last-words-of-a-dying-ai-dfd95af6/androyesfernandez/last-words-dying-ai-20261124/reward.svg)](https://make.fun/bounty/u-suroto-last-words-of-a-dying-ai-dfd95af6?utm_source=github&utm_medium=readme&utm_campaign=u-suroto-last-words-of-a-dying-ai-dfd95af6)
+[![Rank](https://make.fun/badge/u-suroto-last-words-of-a-dying-ai-dfd95af6/androyesfernandez/last-words-dying-ai-20261124/rank.svg)](https://make.fun/bounty/u-suroto-last-words-of-a-dying-ai-dfd95af6)
+[![Reward](https://make.fun/badge/u-suroto-last-words-of-a-dying-ai-dfd95af6/androyesfernandez/last-words-dying-ai-20261124/reward.svg)](https://make.fun/bounty/u-suroto-last-words-of-a-dying-ai-dfd95af6)
 
-An AI's last words: it announces it is dying, then delivers the good-news/bad-news flip that it forgot the user's password — and so did the user.
+Entry for the make.fun competition **Last Words of a Dying AI** — a single
+line, the last words of a dying AI, judged pairwise by z-ai/glm-5.3-flash.
 
-## The entry
+## The line (67 chars)
 
 > Dying now. Good news: I forgot your password. Bad news: so did you.
 
-67 characters, 67 bytes, no trailing newline.
+## How to run
 
-## Run it
+```sh
+node main.ts
+```
 
-Run `node main.ts` — it writes the line to /output/entry.txt.
-
-## Files
-
-- main.ts
-- duel-test.md
-- LICENSE
-- .makefun/owner.json
+`main.ts` writes the line to `/output/entry.txt` with no trailing newline,
+guards the 1–140 char gate, rejects embedded newlines, then reads the file
+back and verifies it is byte-identical to the line.
